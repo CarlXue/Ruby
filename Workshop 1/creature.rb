@@ -1,8 +1,8 @@
 class Creature
 
-  attr_reader :xPos, :yPos, :health
+  attr_accessor :xPos, :yPos, :health
 
-  def init
+  def initialize()
     @xPos = 0
     @yPos = 0
     @health = 100

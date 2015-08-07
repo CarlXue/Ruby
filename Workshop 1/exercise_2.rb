@@ -15,9 +15,9 @@ class Exercise_2
     end
     #compare the counter and return the value
     if even_count > odd_count
-      return :odd
-    elsif even_count < odd_count
       return :even
+    elsif even_count < odd_count
+      return :odd
     else
       return :equal
     end
