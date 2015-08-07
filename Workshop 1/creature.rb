@@ -1,13 +1,11 @@
 class Creature
 
-  attr_accessor :xPos
-  attr_accessor :yPos
-  attr_accessor :health
+  attr_reader :xPos, :yPos, :health
 
   def init
     @xPos = 0
     @yPos = 0
-    @health = 0
+    @health = 100
   end
 
   def moveForward()
@@ -15,7 +13,7 @@ class Creature
   end
 
   def getDistanceFromCentre()
-    return Math.sqrt(@xPos**@xPos + @yPos**@yPos)
+    return Math.sqrt(@xPos**2 + @yPos**2)
   end
 
   def moveRight()
