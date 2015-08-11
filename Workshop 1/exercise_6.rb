@@ -1,4 +1,4 @@
-class Excercise_6
+class Exercise_6
   def call_block(block)
     if block_given?
       yield(block)
