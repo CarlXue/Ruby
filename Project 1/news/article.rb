@@ -24,12 +24,12 @@ module News
     # Returns all of the attributes of an article as a hash.
     def attributes
       hash = {
-        'author' => @author,
-        'title' => @title,
-        'summary' => @summary,
-        'images' => @images,
-        'source' => @source,
-        'date' => @date
+        "author" => @author,
+        "title" => @title,
+        "summary" => @summary,
+        "images" => @images,
+        "source" => @source,
+        "date" => @date
       }
     end
   end

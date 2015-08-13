@@ -20,21 +20,21 @@ module News
     # Validate that any subclass defines the required instance methods
     def validate_subclasses
       if not(self.respond_to?(:extension))
-        throw Exception.new('subclass does not define file format extension')
+        throw Exception.new("subclass does not define file format extension")
       elsif not(self.respond_to?(:header?))
-        throw Exception.new('subclass does not define the header check')
+        throw Exception.new("subclass does not define the header check")
       elsif not(self.respond_to?(:article_representation))
-        throw Exception.new('subclass does not define the article_representation')
+        throw Exception.new("subclass does not define the article_representation")
       elsif not(self.respond_to?(:footer?))
-        throw Exception.new('subclass does not define the footer check')
+        throw Exception.new("subclass does not define the footer check")
       end
 
-      if (self.respond_to?(:header?) && self.header? && (not(self.respond_to?(:header))))
-        throw Exception.new('subclass states it has a header but does not define output')
+      if (self.respond_to?(:header?) && self.header? && not(self.respond_to?(:header)))
+        throw Exception.new("subclass states it has a header but does not define output")
       end
 
-      if (self.respond_to?(:footer?) && self.footer? && (not(self.respond_to?(:footer))))
-        throw Exception.new('subclass states it has a footer but does not define output')
+      if (self.respond_to?(:footer?) && self.footer? && not(self.respond_to?(:footer)))
+        throw Exception.new("subclass states it has a footer but does not define output")
       end
     end
   end

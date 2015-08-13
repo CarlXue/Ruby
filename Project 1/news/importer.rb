@@ -17,7 +17,7 @@ module News
 
     # A news scrape is initialised with the start and end date, it
     # then validates that the required methods are provided
-    def initialize(start_date, end_date)
+    def initialize start_date, end_date
       @start = start_date
       @end = end_date
       @articles = []
@@ -35,12 +35,12 @@ module News
     def validate_subclasses
       # Validate instance methods
       if not(self.respond_to?(:scrape))
-        throw Exception.new('subclass fails to implement the required scrape method')
+        throw Exception.new("subclass fails to implement the required scrape method")
       end
 
       # Validate class methods
       if not(self.class.respond_to?(:source_name))
-        throw Exception.new('subclass fails to provide source_name')
+        throw Exception.new("subclass fails to provide source_name")
       end
 
     end
