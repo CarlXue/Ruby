@@ -27,18 +27,18 @@ module News
 
     # Register an importer and formatter, the name provided will
     # be used as the key to both the importer and formatter hash
-    def register_source source, importer, formatter
+    def register_source(source, importer, formatter)
       # Verify source arguments
       verify_source_arguments source, importer, formatter
 
-      # Set the importer and expoer
+      # Set the importer and exporter
       @importers[source] = importer
       @formatters[source] = formatter
     end
 
     # Remove a source from the scraper, after checking that soure
     # is the correct type of argument
-    def remove_source source
+    def remove_source(source)
       # Check it exists
       fail ArgumentError, "#{source} must be a string or symbol" unless (source.responds_to?(:to_s))
       fail ArgumentError, "#{source} has not been registered" if @importers[source].nil?
@@ -70,22 +70,22 @@ module News
       end
 
       # Report back to the use
-      $stderr.puts "Succesfully scraped and exported #{count} articles from #{@importers.count} sources."
+      $stderr.puts "Successfully scraped and exported #{count} articles from #{@importers.count} sources."
     end
 
     private
 
     # verify method arguments for assignment
-    def verify_source_arguments source, importer, formatter
+    def verify_source_arguments(source, importer, formatter)
       # Fail if already registered (require explicit removal rather than overwrite)
-      fail ArgumentError, "#{source} has already been registered" if @importers[source]
+      fail ArgumentError, '#{source} has already been registered' if @importers[source]
 
       # Fail if either importer or exporter is not a class
-      fail ArgumentError, "importer must be provided as class not object" unless (importer.superclasses.include? Importer)
-      fail ArgumentError, "exporter must be provided as class not object" unless (formatter.superclasses.include?(Formatter))
+      fail ArgumentError, 'importer must be provided as class not object' unless (importer.superclasses.include? Importer)
+      fail ArgumentError, 'exporter must be provided as class not object' unless (formatter.superclasses.include?(Formatter))
 
       # Fail if source is not a symbol
-      fail ArgumentError, "source must be a symbol" unless (source.is_a?(Symbol) || source.is_a?(String))
+      fail ArgumentError, 'source must be a symbol' unless (source.is_a?(Symbol) || source.is_a?(String))
     end
 
   end
