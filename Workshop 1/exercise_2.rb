@@ -6,11 +6,9 @@ class Exercise_2
     even_count = 0
     odd_count = 0
     #iterate the array to count the quantities of even and odd number
-    for num in array
-      if num % 2 ==0
-        even_count += 1
-      else
-        odd_count += 1
+    array.each do |num|
+      if num.is_a? Fixnum
+        (num % 2 == 0) ? even_count += 1 : odd_count += 1
       end
     end
     #compare the counter and return the value
@@ -28,12 +26,9 @@ class Exercise_2
   def average(array)
     #initial the sum 
     sum = 0
-    #iterate the array to calculate the sum and count the
-    for num in array
-      sum += num
-    end
-    
-    return sum.fdiv(array.count)
+    #assume that all the elements are numeric
+    array.each { |num| sum += num }
+    sum.fdiv(array.count)
   end
   
   # function 3
@@ -41,11 +36,12 @@ class Exercise_2
     #initial the sum
     sum = 0
     #iterate the array to calculate the sum and count the
-    for num in array
-      sum += num
+    array.each do |num|
+      if num.is_a? Fixnum
+        sum += num
+      end
     end
-
-    return sum.to_s(2)
+    sum.to_s(2)
   end
   
   # function 4
@@ -53,15 +49,10 @@ class Exercise_2
     #define a new flatten array
     new_array = Array.new()
     #traverse all the item in the array group
-    for row in array_group
-      for item in row
-        new_array.push(item)
-      end
+    array_group.each do |row|
+      row.each { |item| new_array << item }
     end
-
-    return new_array
+    new_array
   end
 
-  #extension question
-  
 end

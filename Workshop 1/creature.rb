@@ -2,21 +2,21 @@ class Creature
 
   attr_accessor :xPos, :yPos, :health
 
-  def initialize()
+  def initialize
     @xPos = 0
     @yPos = 0
     @health = 100
   end
 
-  def moveForward()
+  def moveForward
     @xPos += 10
   end
 
-  def getDistanceFromCentre()
-    return Math.sqrt(@xPos**2 + @yPos**2)
+  def getDistanceFromCentre
+    Math.sqrt(@xPos**2 + @yPos**2)
   end
 
-  def moveRight()
+  def moveRight
     @yPos += 10
   end
 end
