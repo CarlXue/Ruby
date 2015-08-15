@@ -12,7 +12,7 @@ module News
 
     # Initialize the news article, using named paraters to associate
     # the author, title, summary, images, source
-    def initialize (author, title, summary, images, source, date)
+    def initialize (author:nil, title:nil, summary:nil, images:nil, source:nil, date:nil)
         @author = author
         @title = title
         @summary = summary
