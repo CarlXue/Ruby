@@ -3,10 +3,11 @@ require 'rss'
 require 'open-uri'
 require_relative 'article.rb'
 require_relative 'news.rb'
-class Importer_RSS < News::Importer
+
+class Importer_RSS2 < News::Importer
   def initialize(start_date, end_date)
     super
-    url = 'http://www.theage.com.au/rssheadlines/top.xml'
+    url = 'http://www.abc.net.au/sport/syndicate/sport_all.xml'
     rss = open(url).read
     @feed = RSS::Parser.parse(rss,false)
   end
@@ -20,8 +21,8 @@ class Importer_RSS < News::Importer
     # CODE HERE
 
     @feed.items.each do |item|
-    #set different items to article object
-    #how to get author, image ?
+      #set different items to article object
+      #how to get author, image ?
       article = News::Article.new 'Blank', item.title.delete(','), item.description.to_s.delete(',','\s'), 'Blank', item.link, item.pubDate.to_s.delete(',')
       @articles << article
     end
@@ -29,4 +30,6 @@ class Importer_RSS < News::Importer
       puts "Author:#{article.author}\nTitle:#{article.title}\nSummary:#{article.summary}\nImages:#{article.images}\nSource:#{article.source}\nDate:#{article.date}"
     end
   end
+
+
 end
