@@ -2,6 +2,7 @@ require 'date'
 require 'rss'
 require 'open-uri'
 require_relative 'article.rb'
+require_relative 'article_ABC.rb'
 require_relative 'news.rb'
 
 class Importer_RSS2 < News::Importer
@@ -10,11 +11,12 @@ class Importer_RSS2 < News::Importer
     url = 'http://www.abc.net.au/sport/syndicate/sport_all.xml'
     rss = open(url).read
     @feed = RSS::Parser.parse(rss,false)
+    @source = @feed.channel.title.to_s
   end
 
   # RETURN THE SOURCE NAME
   def self.source_name
-    return @feed.channel.title
+    'ABC'
   end
   # PERFORM SCRAPE AND STORE THE ARTICLES
   def scrape
@@ -25,9 +27,9 @@ class Importer_RSS2 < News::Importer
       #how to get author, image ?
       article = News::Article_ABC.new 'Blank',
                                       item.title.delete(','),
-                                      item.description.to_s.delete(',','\s'),
+                                      item.description.to_s.delete(','),
                                       'Blank',
-                                      self.source_name,
+                                      @source,
                                       item.pubDate.to_s.delete(','),
                                       item.link
       @articles << article

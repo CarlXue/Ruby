@@ -2,12 +2,19 @@ module News
   class Article_ABC < News::Article
     attr_reader :link
     def initialize(author, title, summary, images, source, date, link)
-      super
+      super(author, title, summary, images, source, date)
       @link = link
     end
     def attributes
-      super
-      hash['link'] = @link
+      hash = {
+          'author' => @author,
+          'title' => @title,
+          'summary' => @summary,
+          'images' => @images,
+          'source' => @source,
+          'date' => @date,
+          'link' => @link
+      }
     end
   end
 end

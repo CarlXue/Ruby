@@ -2,6 +2,7 @@ require 'date'
 require 'rss'
 require 'open-uri'
 require_relative 'article.rb'
+require_relative 'article_AGE.rb'
 require_relative 'news.rb'
 class Importer_RSS < News::Importer
   def initialize(start_date, end_date)
@@ -9,24 +10,23 @@ class Importer_RSS < News::Importer
     url = 'http://www.theage.com.au/rssheadlines/top.xml'
     rss = open(url).read
     @feed = RSS::Parser.parse(rss,false)
+    @source = @feed.channel.title.to_s
   end
 
   # RETURN THE SOURCE NAME
   def self.source_name
-    return @feed.channel.title
+    'The Age'
   end
   # PERFORM SCRAPE AND STORE THE ARTICLES
   def scrape
     # CODE HERE
-
     @feed.items.each do |item|
     #set different items to article object
-    #how to get author, image ?
       article = News::Article_AGE.new 'Blank',
                                      item.title.delete(','),
-                                     item.description.to_s.delete(',','\s'),
+                                     item.description.to_s.delete(','),
                                      'Blank',
-                                     self.source_name,
+                                     @source,
                                      item.pubDate.to_s.delete(','),
                                      item.link
       @articles << article

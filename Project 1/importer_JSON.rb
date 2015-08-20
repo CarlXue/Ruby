@@ -4,10 +4,11 @@ require 'json'
 require 'net/http'
 require_relative 'news.rb'
 require_relative 'article.rb'
+require_relative 'article_NYT.rb'
 
 class Importer_JSON < News::Importer
   @myDeveloperKey = ''
-  def initialize(start_date:, end_date:)
+  def initialize(start_date, end_date)
     super
     @myDeveloperKey = '199c76dd8907f94a71cf57d356e332b4:15:72719290'
   end
@@ -28,19 +29,24 @@ class Importer_JSON < News::Importer
     jsonMessage.fetch('response').fetch('docs').each do |key|
       article = News::Article_NYT.new 'Blank',
                                   key.fetch('snippet').to_s.delete(','),
-                                  key.fetch('abstract').to_s.delete(','),
+                                  key.fetch('abstract')? (key.fetch('abstract').to_s.delete(',')) : ('Blank'),
                                   'Blank',
                                   key.fetch('source'),
-                                  key.fetch('pub_Date'),
-                                  key.fetch('web_url'),
-                                  key.fetch('document_type'),
-                                  key.fetch('section_name'),
-                                  key.fetch('subsection_name'),
-                                  key.fetch('word-count'),
-                                  key.fetch('headline').fetch('main'),
-                                  key.fetch('byline').fetch('original')
+                                  key.fetch('pub_date').to_s.delete(','),
+                                  key.fetch('web_url').to_s,
+                                  key.fetch('document_type').to_s.delete(','),
+                                  key.fetch('section_name').to_s.delete(','),
+                                  key.fetch('subsection_name')? (key.fetch('subsection_name').to_s.delete(',')) : ('Blank'),
+                                  key.fetch('word_count').to_s.delete(','),
+                                  key.fetch('headline').fetch('main').to_s.delete(','),
+                                  key.fetch('byline').fetch('original').to_s.delete(',')
+
       @articles << article
     end
+    @articles.each do |article|
+      puts "Author:#{article.author}\nTitle:#{article.title}\nSummary:#{article.summary}\nImages:#{article.images}\nSource:#{article.source}\nDate:#{article.date}\nLink:#{article.link}"
+    end
+
     return @articles
   end
 

@@ -6,6 +6,7 @@ require_relative 'formatter_JSON'
 require_relative 'formatter_XML'
 require_relative 'importer_RSS'
 require_relative 'importer_RSS2'
+require_relative 'importer_JSON'
 
 # DRIVER PROGRAM
 
