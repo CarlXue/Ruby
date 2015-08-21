@@ -3,14 +3,9 @@ require 'json'
 require_relative 'news.rb'
 
 class Formatter_JSON < News::Formatter
-  attr_reader :extension, :header, :footer, :article_representation
   #initializer
-  def initialize()
-    super()
-    # @extension = extension
-    # @header = header
-    # @footer = footer
-    # @article_representation = nil
+  def initialize
+    super
   end
   #essential methods
   #DEFINE THE OUTPUT FORMAT
@@ -19,32 +14,24 @@ class Formatter_JSON < News::Formatter
   end
   #CHECK WHETHER THERE IS A HEADER
   def header?
-    # if (@header.nil?)
-    #   return true
-    # else
-    #   return false
-    # end
+    true
   end
   #CHECK WHETHER THERE IS A FOOTER
   def footer?
-    # if (@footer.nil?)
-    #   return true
-    # else
-    #   return false
-    # end
+    false
   end
 
   #PRESENT THE HEADER
   def header(article)
-    # if header?
-    #   return @header    #Line break
-    # end
+    if header?
+      return 'Content-type: application/json, charset=UTF-8'
+    end
   end
   #PRESENT THE FOOTER
   def footer(article)
-    # if footer?
-    #   return @footer  #Line break
-    # end
+    if footer?
+      return
+    end
   end
   #PRESENT THE ARTICLE
   def article_representation(article)

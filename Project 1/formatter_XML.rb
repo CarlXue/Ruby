@@ -19,32 +19,24 @@ class Formatter_XML < News::Formatter
   end
   #CHECK WHETHER THERE IS A HEADER
   def header?
-    # if (@header.nil?)
-    #   return true
-    # else
-    #   return false
-    # end
+    true
   end
   #CHECK WHETHER THERE IS A FOOTER
   def footer?
-    # if (@footer.nil?)
-    #   return true
-    # else
-    #   return false
-    # end
+    false
   end
 
   #PRESENT THE HEADER
   def header(article)
-    # if header?
-    #   return @header    #Line break
-    # end
+    if header?
+      return '<?xml version="1.1" encoding="US-ASCII"?>'
+    end
   end
   #PRESENT THE FOOTER
   def footer(article)
-    # if footer?
-    #   return @footer  #Line break
-    # end
+    if footer?
+      return 
+    end
   end
   #PRODUCE XML FROM A HASH
   def produce_xml (my_hash)
