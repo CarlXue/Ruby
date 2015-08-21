@@ -63,15 +63,19 @@ def sum_binary(array)
 	sum.to_s(2)
 end
 
-# function 4
+# function 4      #elements can be array as well
 def flatten_array(array_group)
 	#define a new flatten array
 	new_array = Array.new()
 	#traverse all the item in the array group
 	array_group.each do |row|
-	  row.each { |item| new_array << item }
+    if row.is_a?(Array)
+      flatten_array(row)
+    else
+      new_array << row
+    end
 	end
-	new_array
+	puts new_array
 end
 
 
@@ -91,8 +95,8 @@ class DiceRoll
     (0...sideNum).each do |i|
       (0...diceNum).each { roll_all_sides << i+1 }
     end
-    combination = roll_all_sides.permutation(diceNum).to_a.uniq
-    print (combination)
+    permutation = roll_all_sides.permutation(diceNum).to_a.uniq
+    print (permutation)
   end
   def roll_dice
     (0...diceNum).each { |i|
@@ -107,7 +111,7 @@ end
 
 #Exercise 4
 def regex_sentence(string)
-  expr_sentence = /^[A-Z][a-z ,]*[\.\?!]$/
+  expr_sentence = /^[A-Z]+[\w\s ,;"']*[.?!]$/
   string =~expr_sentence ? :true : :false
 end
 
@@ -142,34 +146,44 @@ end
 
 
 #Exercise 7
-def count_lines(file)
+def count_lines file
+  file = File.open(file, "r")
+  yield
+  ensure
+    file.close if file
+end
+
+count_lines("exercise_7.txt") do |file|
   line_counter = 0
-  File.open(file, "r") do |file|
-    while line = file.gets
-      line_counter += 1
-    end
-    line_counter
+  while line = file.gets
+    line_counter += 1
   end
+  puts line_counter
 end
 
 
 
 #Exercise 8
-def unique_lines(file1, file2)
+def unique_lines file1, file2
   file_lines = Array.new
   File.open(file1, "a+") do |file|
     while line = file.gets
-      file_lines << line
+      file_lines << line.delete("\n")
     end
   end
   File.open(file2, "a+") do |file|
     while line = file.gets
-      file_lines << line
+      if not(file_lines.include? (line.delete("\n")))
+        file_lines << line
+      else
+        file_lines.delete(line.delete("\n"))
+      end
     end
   end
-  return file_lines.uniq
+  return file_lines
 end
 
+puts unique_lines "exercise_8_1.txt", "exercise_8_2.txt"
 
 
 #Exercise 9

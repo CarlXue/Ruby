@@ -2,15 +2,11 @@ require 'Date'
 require_relative 'news.rb'
 
 class Formatter_CSV < News::Formatter
-  attr_reader :extension, :header, :footer, :article_representation
   #initializer
-  def initialize()
-    super()
-    # @extension = extension
-    # @header = header
-    # @footer = footer
-    # @article_representation = nil
+  def initialize
+    super
   end
+
   #essential methods
   #DEFINE THE OUTPUT FORMAT
   def extension
@@ -49,6 +45,6 @@ class Formatter_CSV < News::Formatter
   # end
   #PRESENT THE ARTICLE
   def article_representation(article)
-    return article.attributes.values.map(&:to_s).join(' ,')
+    return article.attributes.values.map(&:to_s).join('\t')
   end
 end
