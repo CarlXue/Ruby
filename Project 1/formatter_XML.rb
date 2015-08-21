@@ -35,7 +35,7 @@ class Formatter_XML < News::Formatter
   #PRESENT THE FOOTER
   def footer(article)
     if footer?
-      return 
+      return
     end
   end
   #PRODUCE XML FROM A HASH
@@ -44,9 +44,9 @@ class Formatter_XML < News::Formatter
 
     xml.instruct! :xml, :version => "1.1", :encoding => "US-ASCII"
 
-    xml.article do
+    xml.docs do
       my_hash.each do | key, value |
-        xml.article( value, :attr => key )
+        xml.attr(key,value)
       end
     end
   end

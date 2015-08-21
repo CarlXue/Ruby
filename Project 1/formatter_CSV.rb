@@ -35,6 +35,6 @@ class Formatter_CSV < News::Formatter
   end
   #PRESENT THE ARTICLE
   def article_representation(article)
-    return article.attributes.values.map(&:to_s).join('\t')
+    return article.attributes.values.map(&:to_s).join("\t")
   end
 end
