@@ -1,6 +1,17 @@
-require 'Date'
 require 'json'
 require_relative 'news.rb'
+
+#   This class is inherited from the Formatter. It requires the native library 
+# 'json'.
+#   This class is responsible for formatting the json file. 
+#   The extension method will return 'JSON', the header? and footer? methods 
+# will return true and false respectively. 
+#   The header is the content type and character setting. The footer is blank.
+#   The article_representation method puts all the keys and attributes of the
+# hash together in one hash and generate the json file from that hash.
+ 
+# Created by Song Xue (667692)
+# Engineering and IT school, University of Melbourne
 
 class Formatter_JSON < News::Formatter
   #initializer

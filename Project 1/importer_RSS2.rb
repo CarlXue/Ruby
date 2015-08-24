@@ -1,9 +1,22 @@
 require 'date'
 require 'rss'
 require 'open-uri'
-require_relative 'article.rb'
-require_relative 'article_ABC.rb'
 require_relative 'news.rb'
+require_relative 'article_ABC.rb'
+
+#   This class is inherited from the Importer. It requires the native library 
+# 'date', 'open-uri'and 'rss'.
+#
+#   This class is responsible for importing the articles from ABC. 
+#
+#   url is the address of the top sports news from ABC news source.
+#
+#   self.source_name return the name of this source.
+#
+#   scrape method performs an rss parsing and getting the information from it.
+
+# Created by Song Xue (667692)
+# Engineering and IT school, University of Melbourne
 
 class Importer_RSS2 < News::Importer
   def initialize(start_date, end_date)
@@ -25,7 +38,7 @@ class Importer_RSS2 < News::Importer
     @feed.items.each do |item|
       #set different items to article object
       #how to get author, image ?
-      article = News::Article_ABC.new 'Blank',
+      article = Article_ABC.new 'Blank',
                                       item.title.delete(','),
                                       item.description.to_s.delete(','),
                                       'Blank',
@@ -34,10 +47,9 @@ class Importer_RSS2 < News::Importer
                                       item.link
       @articles << article
     end
+    # PRINT OUT THE BRIEF INFO FOR DEBUGGING USE
     @articles.each do |article|
-      puts "Author:#{article.author}\nTitle:#{article.title}\nSummary:#{article.summary}\nImages:#{article.images}\nSource:#{article.source}\nDate:#{article.date}"
+      puts "Successfully scraped one article:\nTitle:#{article.title}\n"
     end
   end
-
-
 end
