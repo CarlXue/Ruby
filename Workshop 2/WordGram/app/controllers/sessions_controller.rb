@@ -3,6 +3,7 @@ class SessionsController < ApplicationController
   # Before actions to check paramters
   before_action :check_params, only: [:login]
   before_action :authenticate_user, only: [:logout]
+  # Load secure password library
 
   def unauth
   end
@@ -10,7 +11,7 @@ class SessionsController < ApplicationController
   # Find a user with the username and email pair, log in that user if they exist 
   def login
   	# Find a user with params
-  	user = User.authenticate(@credentials[:username], @credentials[:email])
+  	user = User.authenticate(@credentials[:password], @credentials[:email])
   	if user
 	  	# Save them in the session
 	  	log_in user
@@ -30,7 +31,7 @@ class SessionsController < ApplicationController
   # Private controller methods
   private
   def check_params
-  	params.require(:credentials).permit(:username, :email)
+  	params.require(:credentials).permit(:password, :email)
   	@credentials = params[:credentials]
   end
 

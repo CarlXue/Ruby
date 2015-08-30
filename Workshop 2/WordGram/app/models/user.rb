@@ -2,15 +2,18 @@ class User < ActiveRecord::Base
 	# Validations
  	validates_presence_of :email, :first_name, :last_name, :username
   	validates :email, format: { with: /(.+)@(.+).[a-z]{2,4}/, message: "%{value} is not a valid email" }
-  	validates :username, length: { minimum: 3 }
+  	validates :password, length: { minimum: 3 }
 
 	# Users can have interests
 	acts_as_taggable_on :interests
 
+	has_secure_password
+
 	# Find a user by email, then check the username is the same
-	def self.authenticate username, email
+	def self.authenticate password, email
 		user = User.find_by(email: email)
-		if user && user.username.eql?(username)
+		if user && user.authenticate(password)
+			puts 'user authenticated'
 			return user
 		else
 			return nil
