@@ -18,10 +18,13 @@
   	Comments
   </div>
    <ul class="list-group">
-    <li class="list-group-item">Cras justo odio</li>
+    <% @post.comments.each do |comment|%>
     <li class="list-group-item">
-    	<%= render partial: 'comment_form', locals: {post: @post} %>
+      <h6><%= comment.user.full_name %></h6>
+      <p><%= comment.content %></p>
+      <%= render partial: 'comment_form', locals: {post: @post} %>
     </li>
+    <% end %>
   </ul>
 
 </div>
@@ -30,5 +33,4 @@
   	<%= link_to 'Edit', edit_post_path(@post), class: "btn btn-default" %>
     <%= link_to 'Back', posts_path ,class: "btn btn-default" %>
 </div>
-
 

@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :comment]
   before_action :authenticate_user
+  before_action :check_auth, only:[:edit, :destroy, :update]
   
   # GET /posts
   # GET /posts.json
@@ -62,6 +63,23 @@ class PostsController < ApplicationController
     end
   end
 
+  def my_interests
+    @post = Post.tagged_with(current_user.interest_list, any => true).to_a
+    render 'index'
+  end
+
+  def comment
+    comment = Commnet.new(comment_params)
+    comment.post = @post
+    comment.user = current_user
+    if @comment.save
+      format.html { redirect_to @post, notice: 'Comment was successfully created.' }
+      format.json { render :show, status: :created, location: @post }
+    else
+      format.html { render :new }
+      format.json { render json: @post.errors, status: :unprocessable_entity }
+    end
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
@@ -71,5 +89,14 @@ class PostsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
       params.require(:post).permit(:title, :content, :tag_list, :user_id)
+    end
+    def comment_params
+      params.require(:comment).permit(:content)
+    end
+
+    def check_auth
+      unless @post.can_edit? current_user
+        redirect_to @post
+      end
     end
 end

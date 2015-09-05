@@ -4,7 +4,7 @@
 		<div class="jumbotron">
 		  <h1>Wordgram!</h1>
 		  <p>The worlds premier written word sharing platform, a place to share your sonnets, poems and all other forms of wordsmithery.</p>
-		  <p><a class="btn btn-primary btn-lg" href="#" role="button">Sign Up Today!</a></p>
+		  <p><%= link_to "Sign Up Today!", new_user_path, class: "btn btn-default"%></p>
 		</div>
 	</div>
 	<div class="col-md-4">
@@ -20,7 +20,7 @@
 						<%= f.label :password%>
 						<%= f.password_field :password, class: 'form-control'%>
 					</div>
-					<%= submit_tag %>
+					<%= submit_tag "Log in" %>
 				<% end %>
 			</div>
 		</div>

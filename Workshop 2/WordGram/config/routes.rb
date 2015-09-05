@@ -1,12 +1,6 @@
 Rails.application.routes.draw do
   
-  get 'user/new'
 
-  get 'user/create'
-
-  get 'user/edit'
-
-  get 'user/destroy'
 
   # Root is the unauthenticated path
   root 'sessions#unauth'
@@ -18,5 +12,10 @@ Rails.application.routes.draw do
 
   # Resourceful routes for posts
   resources :posts
+  get '/interests', to: 'posts#my_interests', as: 'interests'
+  post '/posts/:id/comment', to: 'posts#comment', as: 'comment_on_post'
+  # Resourceful routes for users
+  resources :users, only: [:create, :new, :update, :destroy, :edit]
+
 
 end
