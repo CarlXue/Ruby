@@ -64,7 +64,8 @@ class PostsController < ApplicationController
   end
 
   def my_interests
-    @post = Post.tagged_with(current_user.interest_list, any => true).to_a
+    @posts = Post.tagged_with(current_user.interest_list, :any => true).to_a
+    puts @posts
     render 'index'
   end
 

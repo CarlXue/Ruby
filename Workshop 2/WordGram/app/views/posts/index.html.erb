@@ -1,8 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <h1>All Posts</h1>
+    <% @posts.each do |post| %>
+        <%= render partial: 'index_post', locals: {post: post} %>
+    <% end %>
+    <!--<p>There is no post to show.</p>-->
 
-<% @posts.each do |post| %>
-  <%= render partial: 'index_post', locals: {post: post} %>
-<% end %>
 
