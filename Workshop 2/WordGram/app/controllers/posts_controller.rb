@@ -69,16 +69,19 @@ class PostsController < ApplicationController
   end
 
   def comment
-    comment = Commnet.new(comment_params)
+    comment = Comment.new(comment_params)
     comment.post = @post
     comment.user = current_user
-    if @comment.save
+    respond_to do |format|
+    if comment.save
       format.html { redirect_to @post, notice: 'Comment was successfully created.' }
       format.json { render :show, status: :created, location: @post }
     else
       format.html { render :new }
       format.json { render json: @post.errors, status: :unprocessable_entity }
     end
+  end
+
   end
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -99,4 +102,5 @@ class PostsController < ApplicationController
         redirect_to @post
       end
     end
-end
+  end
+

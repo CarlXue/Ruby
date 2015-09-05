@@ -21,11 +21,11 @@
     <% @post.comments.each do |comment|%>
     <li class="list-group-item">
       <h6><%= comment.user.full_name %></h6>
-      <p><%= comment.content %></p>
-      <%= render partial: 'comment_form', locals: {post: @post} %>
+      <p>><%= comment.content %></p>
     </li>
     <% end %>
   </ul>
+  <%= render partial: 'comment_form', locals: {post: @post} %>
 
 </div>
 
