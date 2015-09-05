@@ -15,4 +15,9 @@ module SessionsHelper
 		session[:user_id] = nil
 	end
 
+  # Sign up link
+  def sign_up
+
+  end
+
 end
