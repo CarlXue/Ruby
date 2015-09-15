@@ -45,10 +45,10 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    log_out @user
+    log_out
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to login_path, notice: 'user was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'user was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

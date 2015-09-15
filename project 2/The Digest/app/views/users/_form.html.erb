@@ -59,8 +59,18 @@
 
 
       <div class="form-group">
-        <%= f.submit 'Save', class: 'btn btn-default' %>
+        <% if current_user %>
+            <%= f.submit 'Save', class: 'btn btn-primary' %>
+        <% else %>
+            <%= f.submit 'Create user', class: 'btn btn-primary' %>
+        <% end %>
       </div>
-    <% end %>
+
+      <% if current_user %>
+        <div class="form-group">
+          <%= link_to "Delete User", current_user, method: :delete, data:{ confirm: "Are you certainly sure?" }, class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+     <% end %>
   </div>
 </div>
