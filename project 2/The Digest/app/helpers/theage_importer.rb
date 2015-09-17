@@ -1,10 +1,7 @@
 require 'date'
 require 'rss'
 require 'open-uri'
-require 'nokogiri'
-require_relative 'news.rb'
-require_relative 'article_AGE.rb'
-
+require_relative '../../app/models/post.rb'
 
 #   This class is inherited from the Importer. It requires the native library 
 # 'date', 'open-uri'and 'rss'.
@@ -20,10 +17,13 @@ require_relative 'article_AGE.rb'
 # Created by Song Xue (667692)
 # Engineering and IT school, University of Melbourne
 
-class Importer_RSS < News::Importer
+class TheAge_Importer < Importer
   def initialize(start_date, end_date)
     super
-
+    url = 'http://www.theage.com.au/rssheadlines/top.xml'
+    rss = open(url).read
+    @feed = RSS::Parser.parse(rss,false)
+    @source = @feed.channel.title.to_s
   end
 
   # RETURN THE SOURCE NAME
@@ -33,18 +33,15 @@ class Importer_RSS < News::Importer
   # PERFORM SCRAPE AND STORE THE ARTICLES
   def scrape
     # CODE HERE
-    url = 'http://www.computerweekly.com/rss/IT-hardware.xml'
-    feeds = Nokogiri::XML(open(url))
-    feeds.xpath('//item').map do |item|
+    @feed.items.each do |item|
     #set different items to article object
-      article = Article_AGE.new 'Unknown',
-                                     item.at_xpath('title').text,
-                                     item.at_xpath('description').text,
-                                     nil,
-                                     'TC',
-                                     item.at_xpath('pubDate').text,
-                                     item.at_xpath('link').text,
-                                     item.at_xpath('category').text
+      article = Post.new( author: 'Blank',
+                                     title: item.title.delete(','),
+                                     summary: item.description.to_s.delete(','),
+                                     image: 'Blank',
+                                     source: @source,
+                                     date: item.pubDate.to_s.delete(','),
+                                     link: item.link)
       @articles << article
     end
     # PRINT OUT THE BRIEF INFO FOR DEBUGGING USE

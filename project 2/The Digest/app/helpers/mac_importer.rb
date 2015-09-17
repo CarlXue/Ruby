@@ -2,16 +2,14 @@ require 'date'
 require 'rss'
 require 'open-uri'
 require 'nokogiri'
-require_relative 'news.rb'
-require_relative 'article_AGE.rb'
-
+require_relative '../../app/models/post.rb'
 
 #   This class is inherited from the Importer. It requires the native library 
 # 'date', 'open-uri'and 'rss'.
 #
-#   This class is responsible for importing the articles from The Age. 
+#   This class is responsible for importing the articles from ABC. 
 #
-#   url is the address of the top stories from The Age news source.
+#   url is the address of the top sports news from ABC news source.
 #
 #   self.source_name return the name of this source.
 #
@@ -20,7 +18,7 @@ require_relative 'article_AGE.rb'
 # Created by Song Xue (667692)
 # Engineering and IT school, University of Melbourne
 
-class Importer_RSS < News::Importer
+class CNET_Importer < Importer
   def initialize(start_date, end_date)
     super
 
@@ -28,23 +26,22 @@ class Importer_RSS < News::Importer
 
   # RETURN THE SOURCE NAME
   def self.source_name
-    'The Age'
+    'CNET'
   end
   # PERFORM SCRAPE AND STORE THE ARTICLES
   def scrape
     # CODE HERE
-    url = 'http://www.computerweekly.com/rss/IT-hardware.xml'
+    url = 'http://feeds.feedburner.com/TechCrunch/Gaming?format=xml'
     feeds = Nokogiri::XML(open(url))
     feeds.xpath('//item').map do |item|
-    #set different items to article object
-      article = Article_AGE.new 'Unknown',
-                                     item.at_xpath('title').text,
-                                     item.at_xpath('description').text,
-                                     nil,
-                                     'TC',
-                                     item.at_xpath('pubDate').text,
-                                     item.at_xpath('link').text,
-                                     item.at_xpath('category').text
+      #set different items to article object
+      article = Post.new(author:'Unknown',
+                                title: item.at_xpath('title').text,
+                                summary: item.at_xpath('description').text,
+                                image: item.at_xpath('media:thumbnail').attr('url'),
+                                source: TC_Importer.source_name,
+                                date: item.at_xpath('pubDate').text,
+                                link: item.at_xpath('link').text)
       @articles << article
     end
     # PRINT OUT THE BRIEF INFO FOR DEBUGGING USE

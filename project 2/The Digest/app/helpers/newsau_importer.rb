@@ -2,19 +2,20 @@
 require 'Date'
 require 'rss'
 require 'open-uri'
+require_relative '../../app/models/post.rb'
 
 class NewsAUImporter < Importer
 
 
   # We call super in the initialize method
-  def initialize start_date, end_date
+  def initialize(start_date, end_date)
     super
   end
 
   # Define the class method for file_name, this should
   # return something similar to the name for your importer
   def self.source_name
-    "news_au"
+    'New AU'
   end
 
   # Define a dummy scrape method that saves canned article data
@@ -24,9 +25,10 @@ class NewsAUImporter < Importer
     open(url) do |rss|
       feed = RSS::Parser.parse(rss)
       feed.items.each do |item|
-          article = News::Article.new( images: item.enclosure.url,
+          article = Post.new( images: item.enclosure.url,
                                        title: item.title, summary: item.description,
-                                       source: item.link, date: item.pubDate)
+                                       link: item.link, date: item.pubDate,
+                                       source: self.source_name, author: 'Unknown')
           @articles << article
       end
     end
