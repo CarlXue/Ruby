@@ -1,6 +1,7 @@
+require_relative '../../app/helpers/abc_importer'
+
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy, :comment]
-  before_action :authenticate_user
   before_action :check_auth, only: [:edit, :update, :destroy]
   # GET /posts
   # GET /posts.json
@@ -12,7 +13,12 @@ class PostsController < ApplicationController
     @posts = Post.tagged_with(current_user.interest_list, :any => true).to_a
     render 'index'
   end
-
+  # FETCH
+  def fetchNews
+    abc = ABC_Importer.new
+    abc.scrape
+    redirect_to posts_path
+  end
   # GET /posts/1
   # GET /posts/1.json
   def show
@@ -30,8 +36,7 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    @post = Post.new(post_params)  
-    @post.user = current_user
+    @post = Post.new(post_params)
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
@@ -90,9 +95,9 @@ class PostsController < ApplicationController
     end
 
     def check_auth
-      unless @post.can_edit? current_user
-        redirect_to @post
-      end
+      # unless @post.can_edit? current_user
+      #   redirect_to @post
+      # end
     end
 
     def comment_params
@@ -101,6 +106,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :content, :tag_list, :user_id)
+      params.require(:post).permit(:title, :content, :tag_list)
     end
 end

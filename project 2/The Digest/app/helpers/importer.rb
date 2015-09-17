@@ -17,18 +17,16 @@ class Importer
 
   # A news scrape is initialised with the start and end date, it
   # then validates that the required methods are provided
-  def initialize start_date, end_date
-    @start = start_date
-    @end = end_date
-    @articles = []
+  def initialize
+    # @start = start_date
+    # @end = end_date
+
     validate_subclasses
   end
 
   # Method to return news articles, ensuring that we only return
   # unique news articles
-  def articles
-    @articles.uniq
-  end
+
 
   private
   # Method to valid subclass implements the required methods

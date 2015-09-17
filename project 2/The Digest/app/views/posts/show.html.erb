@@ -6,11 +6,16 @@
   </div>
 
   <div class="panel-body">
-  	<p><%= @post.content %></p>
+  	<p><%= @post.summary %></p>
+    <p><%= @post.author %></p>
+
   </div>
-  <% if @post.user %>
-	<div class="panel-footer">By <%= @post.user.full_name %></div>
-  <% end %>
+  <div class="panel-body">
+    <p><%= @post.pubDate %></p>
+    <p><%= @post.source %></p>
+    <p><%= @post.link %></p>
+  </div>
+
 </div>
 
 <div class="panel panel-default">

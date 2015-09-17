@@ -18,12 +18,9 @@ require_relative '../../app/models/post.rb'
 # Engineering and IT school, University of Melbourne
 
 class ABC_Importer < Importer
-  def initialize(start_date, end_date)
+  def initialize
     super
-    url = 'http://www.abc.net.au/sport/syndicate/sport_all.xml'
-    rss = open(url).read
-    @feed = RSS::Parser.parse(rss,false)
-    @source = @feed.channel.title.to_s
+
   end
 
   # RETURN THE SOURCE NAME
@@ -33,20 +30,27 @@ class ABC_Importer < Importer
   # PERFORM SCRAPE AND STORE THE ARTICLES
   def scrape
     # CODE HERE
-
-    @feed.items.each do |item|
+    url = 'http://www.abc.net.au/sport/syndicate/sport_all.xml'
+    rss = open(url).read
+    feed = RSS::Parser.parse(rss)
+    feed.items.each do |item|
       #set different items to article object
       #how to get author, image ?
-      article = Post.new(author: 'Unknown',title: item.title,
-                         summary: item.description.to_s,
-                         image: 'Blank',source: @source,
-                         pubDate: item.pubDate.to_s.delete(','),
-                         link: item.link)
-      @articles << article
-    end
-    # PRINT OUT THE BRIEF INFO FOR DEBUGGING USE
-    @articles.each do |article|
-      puts "Successfully scraped one article:\nTitle:#{article.title}\n"
+      title = item.title
+      summary = item.description
+      pubDate = item.pubDate
+      link = item.link
+      article = Post.create(author: 'Unknown',
+                          title: title,
+                          summary: summary,
+                          image: 'Blank',
+                          source: ABC_Importer.source_name,
+                          pubDate: pubDate,
+                          link: link)
+      #DEBUGGING
+      puts "Successfully scraped one article:\nTitle:#{article.title},\nSummary:#{article.summary},\npubDate:#{article.pubDate},\nlink: #{article.link}\n"
+
     end
   end
+
 end
