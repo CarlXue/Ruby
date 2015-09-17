@@ -18,7 +18,7 @@ require_relative '../../app/models/post.rb'
 # Engineering and IT school, University of Melbourne
 
 class TheAge_Importer < Importer
-  def initialize(start_date, end_date)
+  def initialize
     super
     url = 'http://www.theage.com.au/rssheadlines/top.xml'
     rss = open(url).read
@@ -35,18 +35,16 @@ class TheAge_Importer < Importer
     # CODE HERE
     @feed.items.each do |item|
     #set different items to article object
-      article = Post.new( author: 'Blank',
+      article = Post.create( author: 'Blank',
                                      title: item.title.delete(','),
                                      summary: item.description.to_s.delete(','),
                                      image: 'Blank',
-                                     source: @source,
-                                     date: item.pubDate.to_s.delete(','),
+                                     source: TheAge_Importer.source_name,
+                                     pubDate: item.pubDate.to_s.delete(','),
                                      link: item.link)
-      @articles << article
-    end
-    # PRINT OUT THE BRIEF INFO FOR DEBUGGING USE
-    @articles.each do |article|
-      puts "Successfully scraped one article:\nTitle:#{article.title}\n"
+      #DEBUGGING
+      puts "Successfully scraped one article:\nTitle:#{article.title},\nSummary:#{article.summary},\npubDate:#{article.pubDate},\nlink: #{article.link}\n"
+
     end
   end
 end

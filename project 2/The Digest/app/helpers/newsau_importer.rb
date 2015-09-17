@@ -8,7 +8,7 @@ class NewsAUImporter < Importer
 
 
   # We call super in the initialize method
-  def initialize(start_date, end_date)
+  def initialize
     super
   end
 
@@ -25,14 +25,13 @@ class NewsAUImporter < Importer
     open(url) do |rss|
       feed = RSS::Parser.parse(rss)
       feed.items.each do |item|
-          article = Post.new( images: item.enclosure.url,
+          article = Post.create( image: item.enclosure.url,
                                        title: item.title, summary: item.description,
-                                       link: item.link, date: item.pubDate,
-                                       source: self.source_name, author: 'Unknown')
-          @articles << article
+                                       link: item.link, pubDate: item.pubDate,
+                                       source: NewsAUImporter.source_name, author: 'Unknown')
+          #DEBUGGING
+          puts "Successfully scraped one article:\nTitle:#{article.title},\nSummary:#{article.summary},\npubDate:#{article.pubDate},\nlink: #{article.link}\n"
       end
     end
-
-
   end
 end

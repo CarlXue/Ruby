@@ -24,7 +24,7 @@ require_relative '../../app/models/post.rb'
 
 class NYT_Importer < Importer
   @myDeveloperKey = ''
-  def initialize(start_date, end_date)
+  def initialize
     super
     @myDeveloperKey = '199c76dd8907f94a71cf57d356e332b4:15:72719290'
   end
@@ -43,12 +43,12 @@ class NYT_Importer < Importer
     response = http.send_request('GET', request_url)
     jsonMessage = JSON.parse(response.body)
     jsonMessage.fetch('response').fetch('docs').each do |key|
-      article = POST.new( author:'Blank',
+      article = POST.create( author:'Blank',
                                   title: key.fetch('snippet'),
                                   summary: key.fetch('abstract')? (key.fetch('abstract')) : ('Blank'),
                                   image: 'Blank',
                                   source: key.fetch('source'),
-                                  date: key.fetch('pub_date').to_s.delete(','),
+                                  pubDate: key.fetch('pub_date').to_s.delete(','),
                                   link: key.fetch('web_url').to_s)
                                   # key.fetch('document_type').to_s.delete(','),
                                   # key.fetch('section_name').to_s.delete(','),
@@ -56,13 +56,8 @@ class NYT_Importer < Importer
                                   # key.fetch('word_count').to_s.delete(','),
                                   # key.fetch('headline').fetch('main').to_s.delete(','),
                                   # key.fetch('byline').fetch('original').to_s.delete(',')
-      # ATTACH THE ARTICLE IN THE ARRAY
-      @articles << article
+                                  #DEBUGGING
+      puts "Successfully scraped one article:\nTitle:#{article.title},\nSummary:#{article.summary},\npubDate:#{article.pubDate},\nlink: #{article.link}\n"
     end
-    # PRINT OUT THE BRIEF INFO FOR DEBUGGING USE
-    @articles.each do |article|
-      puts "Successfully scraped one article:\nTitle:#{article.title}\n"
-    end
-    return @articles
   end
 end

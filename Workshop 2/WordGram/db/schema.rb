@@ -52,6 +52,17 @@ ActiveRecord::Schema.define(version: 20150904070919) do
     t.integer "taggings_count", default: 0
   end
 
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true
 
+  create_table "users", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "bio"
+    t.string   "username"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "password_digest"
   end
 
+end

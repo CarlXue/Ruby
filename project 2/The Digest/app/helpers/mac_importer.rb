@@ -18,35 +18,35 @@ require_relative '../../app/models/post.rb'
 # Created by Song Xue (667692)
 # Engineering and IT school, University of Melbourne
 
-class CNET_Importer < Importer
-  def initialize(start_date, end_date)
+class MAC_Importer < Importer
+  def initialize
     super
 
   end
 
   # RETURN THE SOURCE NAME
   def self.source_name
-    'CNET'
+    'Mac Rumor'
   end
   # PERFORM SCRAPE AND STORE THE ARTICLES
   def scrape
     # CODE HERE
-    url = 'http://feeds.feedburner.com/TechCrunch/Gaming?format=xml'
+    url = 'http://www.macrumors.com/macrumors.xml'
     feeds = Nokogiri::XML(open(url))
     feeds.xpath('//item').map do |item|
+      tmp_html = Nokogiri::HTML(open(item.at_xpath('description').text))
+      tmp_img = tmp_html.xpath("//img")[0].attr('src')
+      tmp_des = tmp_html.xpath("//p").text
       #set different items to article object
-      article = Post.new(author:'Unknown',
+      article = Post.create(author:'Unknown',
                                 title: item.at_xpath('title').text,
-                                summary: item.at_xpath('description').text,
-                                image: item.at_xpath('media:thumbnail').attr('url'),
-                                source: TC_Importer.source_name,
-                                date: item.at_xpath('pubDate').text,
+                                summary: tmp_des,
+                                image: tmp_img,
+                                source: MAC_Importer.source_name,
+                                pubDate: item.at_xpath('pubDate').text,
                                 link: item.at_xpath('link').text)
-      @articles << article
-    end
-    # PRINT OUT THE BRIEF INFO FOR DEBUGGING USE
-    @articles.each do |article|
-      puts "Successfully scraped one article:\nTitle:#{article.title}\n"
+      #DEBUGGING
+      puts "Successfully scraped one article:\nTitle:#{article.title},\nSummary:#{article.summary},\npubDate:#{article.pubDate},\nlink: #{article.link}\n"
     end
   end
 end

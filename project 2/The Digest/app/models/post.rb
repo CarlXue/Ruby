@@ -1,6 +1,7 @@
 class Post < ActiveRecord::Base
 
   validates_uniqueness_of :title, scope: [:pubDate]
+  belongs_to :user
   # Relationship
   has_many :comments
 

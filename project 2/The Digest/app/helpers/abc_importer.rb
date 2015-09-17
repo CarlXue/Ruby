@@ -52,5 +52,4 @@ class ABC_Importer < Importer
 
     end
   end
-
 end
