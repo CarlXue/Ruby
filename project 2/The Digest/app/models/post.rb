@@ -1,8 +1,6 @@
 class Post < ActiveRecord::Base
 
-  # define reader for the attributes
-  attr_reader :author, :title, :summary, :image, :source, :pubDate, :link
-
+  validates_uniqueness_of :title, scope: [:pubDate]
   # Relationship
   has_many :comments
 
