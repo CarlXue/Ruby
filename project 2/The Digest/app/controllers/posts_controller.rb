@@ -24,13 +24,13 @@ class PostsController < ApplicationController
     abc.scrape
     # mac = MAC_Importer.new
     # mac.scrape
-    newsau = NewsAUImporter.new
+    newsau = NEWSAU_Importer.new
     newsau.scrape
-    # nyt = NYT_Importer.new
-    # nyt.scrape
+    nyt = NYT_Importer.new
+    nyt.scrape
     tc = TC_Importer.new
     tc.scrape
-    theage = TheAge_Importer.new
+    theage = THEAGE_Importer.new
     theage.scrape
 
     redirect_to posts_path

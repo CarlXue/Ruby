@@ -17,7 +17,7 @@ require_relative '../../app/models/post.rb'
 # Created by Song Xue (667692)
 # Engineering and IT school, University of Melbourne
 
-class TheAge_Importer < Importer
+class THEAGE_Importer < Importer
   def initialize
     super
     url = 'http://www.theage.com.au/rssheadlines/top.xml'
@@ -39,7 +39,7 @@ class TheAge_Importer < Importer
                                      title: item.title.delete(','),
                                      summary: item.description.to_s.delete(','),
                                      image: 'Blank',
-                                     source: TheAge_Importer.source_name,
+                                     source: THEAGE_Importer.source_name,
                                      pubDate: item.pubDate.to_s.delete(','),
                                      link: item.link)
       #DEBUGGING

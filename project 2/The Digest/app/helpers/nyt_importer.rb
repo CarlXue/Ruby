@@ -39,13 +39,13 @@ class NYT_Importer < Importer
     uri = URI.parse(url)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = false
-    request_url = url + "svc/search/v2/articlesearch.json?fq=romney&facet_field=day_of_week&begin_date=#{@start.to_s.delete!('-')}&end_date=#{@end.to_s.delete!('-')}&api-key=#{@myDeveloperKey}"
+    request_url = url + "svc/search/v2/articlesearch.json?fq=romney&facet_field=day_of_week&begin_date=#{(Date.today-7).to_s.delete!('-')}&end_date=#{Date.today.to_s.delete!('-')}&api-key=#{@myDeveloperKey}"
     response = http.send_request('GET', request_url)
     jsonMessage = JSON.parse(response.body)
     jsonMessage.fetch('response').fetch('docs').each do |key|
-      article = POST.create( author:'Blank',
-                                  title: key.fetch('snippet'),
-                                  summary: key.fetch('abstract')? (key.fetch('abstract')) : ('Blank'),
+       article = Post.create( author:'Blank',
+                                  title: key.fetch('headline').fetch('main').to_s,
+                                  summary: key.fetch('snippet')? (key.fetch('abstract')) : ('Blank'),
                                   image: 'Blank',
                                   source: key.fetch('source'),
                                   pubDate: key.fetch('pub_date').to_s.delete(','),
