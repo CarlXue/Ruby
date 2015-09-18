@@ -1,5 +1,5 @@
 require_relative '../../app/helpers/abc_importer'
-require_relative '../../app/helpers/mac_importer'
+require_relative '../../app/helpers/eurek_importer'
 require_relative '../../app/helpers/newsau_importer'
 require_relative '../../app/helpers/nyt_importer'
 require_relative '../../app/helpers/tc_importer'
@@ -22,8 +22,8 @@ class PostsController < ApplicationController
   def fetchNews
     abc = ABC_Importer.new
     abc.scrape
-    # mac = MAC_Importer.new
-    # mac.scrape
+    mac = EUREK_Importer.new
+    mac.scrape
     newsau = NEWSAU_Importer.new
     newsau.scrape
     nyt = NYT_Importer.new

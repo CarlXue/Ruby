@@ -18,7 +18,7 @@ require_relative '../../app/models/post.rb'
 # Created by Song Xue (667692)
 # Engineering and IT school, University of Melbourne
 
-class MAC_Importer < Importer
+class EUREK_Importer < Importer
   def initialize
     super
 
@@ -26,25 +26,23 @@ class MAC_Importer < Importer
 
   # RETURN THE SOURCE NAME
   def self.source_name
-    'Mac Rumor'
+    'EurekAlert'
   end
   # PERFORM SCRAPE AND STORE THE ARTICLES
   def scrape
     # CODE HERE
-    url = 'http://www.macrumors.com/macrumors.xml'
-    feeds = Nokogiri::XML(open(url))
-    feeds.xpath('//item').map do |item|
-      tmp_html = Nokogiri::HTML(open(item.at_xpath('description').text))
-      tmp_img = tmp_html.xpath("//img")[0].attr('src')
-      tmp_des = tmp_html.xpath("//p").text
+    url = 'http://www.eurekalert.org/rss/mathematics.xml'
+    rss = open(url).read
+    feed = RSS::Parser.parse(rss,false)
+    feed.items.each do |item|
       #set different items to article object
       article = Post.create(author:'Unknown',
-                                title: item.at_xpath('title').text,
-                                summary: tmp_des,
-                                image: tmp_img,
-                                source: MAC_Importer.source_name,
-                                pubDate: item.at_xpath('pubDate').text,
-                                link: item.at_xpath('link').text)
+                                title: item.title,
+                                summary: item.description,
+                                image: 'Blank',
+                                source: EUREK_Importer.source_name,
+                                pubDate: item.pubDate,
+                                link: item.link)
       #DEBUGGING
       puts "Successfully scraped one article:\nTitle:#{article.title},\nSummary:#{article.summary},\npubDate:#{article.pubDate},\nlink: #{article.link}\n"
     end
