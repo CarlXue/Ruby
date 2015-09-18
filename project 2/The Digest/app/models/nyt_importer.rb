@@ -53,12 +53,12 @@ class NYT_Importer
       if tags.count == 0
         tags = ['boring']
       end
-       article = Post.create( author:'Blank',
+       article = Post.create( author:nil,
                                   title: key.fetch('headline').fetch('main').to_s,
-                                  summary: key.fetch('snippet')? (key.fetch('abstract')) : ('Blank'),
-                                  image: 'Blank',
+                                  summary: key.fetch('snippet')? (key.fetch('abstract')) : nil,
+                                  image: nil,
                                   source: key.fetch('source'),
-                                  pubDate: key.fetch('pub_date').to_s.delete(','),
+                                  pubDate: key.fetch('pub_date').to_s.delete(',')[0..9],
                                   link: key.fetch('web_url').to_s,
                                   tag_list:tags)
 

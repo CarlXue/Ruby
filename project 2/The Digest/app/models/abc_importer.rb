@@ -48,12 +48,12 @@ class ABC_Importer
       end
       #set different items to article object
       #how to get author, image ?
-      article = Post.create(author: 'Unknown',
+      article = Post.create(author: nil,
                           title: title,
                           summary: summary,
-                          image: 'Blank',
+                          image: nil,
                           source: ABC_Importer.source_name,
-                          pubDate: pubDate,
+                          pubDate: pubDate.to_s[0..15],
                           link: link,
                           tag_list: tags)
 

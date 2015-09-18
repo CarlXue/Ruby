@@ -45,12 +45,12 @@ class EUREK_Importer
         tags = ['boring','mathematics','science']
       end
       #set different items to article object
-      article = Post.create(author:'Unknown',
+      article = Post.create(author: nil,
                                 title: item.title,
                                 summary: item.description,
-                                image: 'Blank',
+                                image: nil,
                                 source: EUREK_Importer.source_name,
-                                pubDate: item.pubDate,
+                                pubDate: item.pubDate.to_s[0..15],
                                 link: item.link,
                                 tag_list:tags)
 

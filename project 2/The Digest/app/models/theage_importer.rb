@@ -44,12 +44,12 @@ class THEAGE_Importer
         tags = ['boring','Top News']
       end
     #set different items to article object
-      article = Post.create( author: 'Blank',
+      article = Post.create( author: nil,
                                      title: item.title.delete(','),
                                      summary: item.description.to_s.delete(','),
-                                     image: 'Blank',
+                                     image: nil,
                                      source: THEAGE_Importer.source_name,
-                                     pubDate: item.pubDate.to_s.delete(','),
+                                     pubDate: item.pubDate.to_s.delete(',')[0..14],
                                      link: item.link,
                                      tag_list:tags)
 

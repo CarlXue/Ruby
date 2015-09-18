@@ -45,12 +45,12 @@ class TC_Importer
         tags = ['boring','gaming']
       end
       #set different items to article object
-      article = Post.create(author:'Unknown',
+      article = Post.create(author:nil,
                                 title: item.at_xpath('title').text,
                                 summary: item.at_xpath('description').text,
                                 image: item.at_xpath('media:thumbnail').attr('url'),
                                 source: TC_Importer.source_name,
-                                pubDate: item.at_xpath('pubDate').text,
+                                pubDate: item.at_xpath('pubDate').text[0..15],
                                 link: item.at_xpath('link').text,
                                 tag_list: tags)
       #DEBUGGING

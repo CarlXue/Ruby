@@ -45,8 +45,8 @@ class NEWSAU_Importer
         end
         article = Post.create( image: item.enclosure.url,
                                title: item.title, summary: item.description,
-                               link: item.link, pubDate: item.pubDate,
-                               source: NEWSAU_Importer.source_name, author: 'Unknown',
+                               link: item.link, pubDate: item.pubDate.to_s[0..15],
+                               source: NEWSAU_Importer.source_name, author: nil,
                                tag_list:tags)
 
         #DEBUGGING
