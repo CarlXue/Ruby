@@ -32,8 +32,9 @@ class PostsController < ApplicationController
     tc.scrape
     theage = THEAGE_Importer.new
     theage.scrape
-
-    redirect_to posts_path
+    respond_to do |format|
+      format.html { redirect_to posts_path, notice: 'News was successfully scraped.'}
+    end
   end
   # GET /posts/1
   # GET /posts/1.json
