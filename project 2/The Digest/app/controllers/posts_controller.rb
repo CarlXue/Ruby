@@ -33,7 +33,7 @@ class PostsController < ApplicationController
     theage = THEAGE_Importer.new
     theage.scrape
     respond_to do |format|
-      format.html { redirect_to posts_path, notice: 'News was successfully scraped.'}
+      format.html { redirect_to posts_path, status: 403, notice: 'News was successfully scraped.'}
     end
   end
   # GET /posts/1

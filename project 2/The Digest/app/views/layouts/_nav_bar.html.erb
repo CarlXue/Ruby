@@ -8,7 +8,11 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">The Digest</a>
+      <% if current_user %>
+        <%= link_to "The Digest", posts_path, class:"navbar-brand" %>
+      <% else %>
+        <%= link_to "The Digest", root_path, class:"navbar-brand" %>
+      <% end %>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
