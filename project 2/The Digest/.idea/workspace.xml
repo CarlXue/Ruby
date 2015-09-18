@@ -100,8 +100,8 @@
           <file leaf-file-name="sessions_helper.rb" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/app/helpers/sessions_helper.rb">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.7303371">
-                  <caret line="26" column="19" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
+                <state vertical-scroll-proportion="0.64606744">
+                  <caret line="23" column="24" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
                   <folding />
                 </state>
               </provider>
@@ -1137,8 +1137,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/helpers/sessions_helper.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7303371">
-          <caret line="26" column="19" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
+        <state vertical-scroll-proportion="0.64606744">
+          <caret line="23" column="24" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
           <folding />
         </state>
       </provider>
