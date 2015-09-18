@@ -41,7 +41,8 @@ class THEAGE_Importer < Importer
                                      image: 'Blank',
                                      source: THEAGE_Importer.source_name,
                                      pubDate: item.pubDate.to_s.delete(','),
-                                     link: item.link)
+                                     link: item.link,
+                                     tag_list: ['The Age','Top news', 'News'])
       #DEBUGGING
       puts "Successfully scraped one article:\nTitle:#{article.title},\nSummary:#{article.summary},\npubDate:#{article.pubDate},\nlink: #{article.link}\n"
 

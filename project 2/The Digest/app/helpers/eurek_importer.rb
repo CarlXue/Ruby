@@ -42,7 +42,8 @@ class EUREK_Importer < Importer
                                 image: 'Blank',
                                 source: EUREK_Importer.source_name,
                                 pubDate: item.pubDate,
-                                link: item.link)
+                                link: item.link,
+                                tag_list: ['EurekAlert','Mathematics'])
       #DEBUGGING
       puts "Successfully scraped one article:\nTitle:#{article.title},\nSummary:#{article.summary},\npubDate:#{article.pubDate},\nlink: #{article.link}\n"
     end

@@ -49,8 +49,8 @@ class NYT_Importer < Importer
                                   image: 'Blank',
                                   source: key.fetch('source'),
                                   pubDate: key.fetch('pub_date').to_s.delete(','),
-                                  link: key.fetch('web_url').to_s)
-                                  # key.fetch('document_type').to_s.delete(','),
+                                  link: key.fetch('web_url').to_s,
+                                  tag_list: key.fetch('document_type').to_s.delete(','))
                                   # key.fetch('section_name').to_s.delete(','),
                                   # key.fetch('subsection_name')? (key.fetch('subsection_name').to_s.delete(',')) : ('Blank'),
                                   # key.fetch('word_count').to_s.delete(','),

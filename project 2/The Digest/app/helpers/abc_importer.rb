@@ -46,7 +46,9 @@ class ABC_Importer < Importer
                           image: 'Blank',
                           source: ABC_Importer.source_name,
                           pubDate: pubDate,
-                          link: link)
+                          link: link,
+                          tag_list: ['ABC','News','Sports'])
+
       #DEBUGGING
       puts "Successfully scraped one article:\nTitle:#{article.title},\nSummary:#{article.summary},\npubDate:#{article.pubDate},\nlink: #{article.link}\n"
 

@@ -41,7 +41,10 @@ class TC_Importer < Importer
                                 image: item.at_xpath('media:thumbnail').attr('url'),
                                 source: TC_Importer.source_name,
                                 pubDate: item.at_xpath('pubDate').text,
-                                link: item.at_xpath('link').text)
+                                link: item.at_xpath('link').text,
+                                tag_list: [item.at_xpath('category').text,'TC'])
+
+
       #DEBUGGING
       puts "Successfully scraped one article:\nTitle:#{article.title},\nSummary:#{article.summary},\npubDate:#{article.pubDate},\nlink: #{article.link}\n"
     end

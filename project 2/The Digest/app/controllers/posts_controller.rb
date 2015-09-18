@@ -22,8 +22,8 @@ class PostsController < ApplicationController
   def fetchNews
     abc = ABC_Importer.new
     abc.scrape
-    mac = EUREK_Importer.new
-    mac.scrape
+    eurek = EUREK_Importer.new
+    eurek.scrape
     newsau = NEWSAU_Importer.new
     newsau.scrape
     nyt = NYT_Importer.new

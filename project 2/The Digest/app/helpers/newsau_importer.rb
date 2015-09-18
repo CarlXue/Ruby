@@ -37,7 +37,8 @@ class NEWSAU_Importer < Importer
         article = Post.create( image: item.enclosure.url,
                                title: item.title, summary: item.description,
                                link: item.link, pubDate: item.pubDate,
-                               source: NEWSAU_Importer.source_name, author: 'Unknown')
+                               source: NEWSAU_Importer.source_name, author: 'Unknown',
+                               tag_list: ['News AU','National','News'])
         #DEBUGGING
         puts "Successfully scraped one article:\nTitle:#{article.title},\nSummary:#{article.summary},\npubDate:#{article.pubDate},\nlink: #{article.link}\n"
       end
