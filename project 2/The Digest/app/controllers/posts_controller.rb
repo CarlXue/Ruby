@@ -1,9 +1,9 @@
-require_relative '../../app/helpers/abc_importer'
-require_relative '../../app/helpers/eurek_importer'
-require_relative '../../app/helpers/newsau_importer'
-require_relative '../../app/helpers/nyt_importer'
-require_relative '../../app/helpers/tc_importer'
-require_relative '../../app/helpers/theage_importer'
+require_relative '../../app/models/abc_importer'
+require_relative '../../app/models/eurek_importer'
+require_relative '../../app/models/newsau_importer'
+require_relative '../../app/models/nyt_importer'
+require_relative '../../app/models/tc_importer'
+require_relative '../../app/models/theage_importer'
 
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy, :comment]

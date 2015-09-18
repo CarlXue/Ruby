@@ -1,7 +1,7 @@
 require 'date'
 require 'rss'
 require 'open-uri'
-require_relative '../../app/models/post.rb'
+require_relative 'post.rb'
 
 #   This class is inherited from the Importer. It requires the native library 
 # 'date', 'open-uri'and 'rss'.
@@ -17,7 +17,7 @@ require_relative '../../app/models/post.rb'
 # Created by Song Xue (667692)
 # Engineering and IT school, University of Melbourne
 
-class THEAGE_Importer < Importer
+class THEAGE_Importer
   def initialize
     super
     url = 'http://www.theage.com.au/rssheadlines/top.xml'
@@ -34,6 +34,15 @@ class THEAGE_Importer < Importer
   def scrape
     # CODE HERE
     @feed.items.each do |item|
+      #get the tag
+      title = item.title.to_s
+      regex = /[A-Z][a-z]+/
+      tags = title.scan(regex)
+      #remove the first one
+      tags.shift
+      if tags.count == 0
+        tags = ['boring','Top News']
+      end
     #set different items to article object
       article = Post.create( author: 'Blank',
                                      title: item.title.delete(','),
@@ -42,8 +51,11 @@ class THEAGE_Importer < Importer
                                      source: THEAGE_Importer.source_name,
                                      pubDate: item.pubDate.to_s.delete(','),
                                      link: item.link,
-                                     tag_list: ['The Age','Top news', 'News'])
+                                     tag_list:tags)
+
+      #assign tag list
       #DEBUGGING
+      puts "TAGs: #{article.tag_list}"
       puts "Successfully scraped one article:\nTitle:#{article.title},\nSummary:#{article.summary},\npubDate:#{article.pubDate},\nlink: #{article.link}\n"
 
     end

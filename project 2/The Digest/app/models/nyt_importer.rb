@@ -2,7 +2,7 @@ require 'date'
 require 'open-uri'
 require 'json'
 require 'net/http'
-require_relative '../../app/models/post.rb'
+require_relative 'post.rb'
 
 #   This class is inherited from the Importer. It requires the native library 
 # 'date', 'open-uri', 'json' and 'net/http'.
@@ -22,7 +22,7 @@ require_relative '../../app/models/post.rb'
 # Created by Song Xue (667692)
 # Engineering and IT school, University of Melbourne
 
-class NYT_Importer < Importer
+class NYT_Importer
   @myDeveloperKey = ''
   def initialize
     super
@@ -43,6 +43,16 @@ class NYT_Importer < Importer
     response = http.send_request('GET', request_url)
     jsonMessage = JSON.parse(response.body)
     jsonMessage.fetch('response').fetch('docs').each do |key|
+      #get the tag
+      title = key.fetch('headline').fetch('main').to_s
+      regex = /[A-Z][a-z]+/
+      tags = title.scan(regex)
+      #remove the first one
+      tags.shift
+      tags << key.fetch('section_name').to_s.delete(',')
+      if tags.count == 0
+        tags = ['boring']
+      end
        article = Post.create( author:'Blank',
                                   title: key.fetch('headline').fetch('main').to_s,
                                   summary: key.fetch('snippet')? (key.fetch('abstract')) : ('Blank'),
@@ -50,13 +60,9 @@ class NYT_Importer < Importer
                                   source: key.fetch('source'),
                                   pubDate: key.fetch('pub_date').to_s.delete(','),
                                   link: key.fetch('web_url').to_s,
-                                  tag_list: key.fetch('document_type').to_s.delete(','))
-                                  # key.fetch('section_name').to_s.delete(','),
-                                  # key.fetch('subsection_name')? (key.fetch('subsection_name').to_s.delete(',')) : ('Blank'),
-                                  # key.fetch('word_count').to_s.delete(','),
-                                  # key.fetch('headline').fetch('main').to_s.delete(','),
-                                  # key.fetch('byline').fetch('original').to_s.delete(',')
-                                  #DEBUGGING
+                                  tag_list:tags)
+
+      #DEBUGGING
       puts "Successfully scraped one article:\nTitle:#{article.title},\nSummary:#{article.summary},\npubDate:#{article.pubDate},\nlink: #{article.link}\n"
     end
   end

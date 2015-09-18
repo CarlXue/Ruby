@@ -1,7 +1,7 @@
 require 'date'
 require 'rss'
 require 'open-uri'
-require_relative '../../app/models/post.rb'
+require_relative 'post.rb'
 
 #   This class is inherited from the Importer. It requires the native library 
 # 'date', 'open-uri'and 'rss'.
@@ -17,7 +17,7 @@ require_relative '../../app/models/post.rb'
 # Created by Song Xue (667692)
 # Engineering and IT school, University of Melbourne
 
-class ABC_Importer < Importer
+class ABC_Importer
   def initialize
     super
 
@@ -34,12 +34,20 @@ class ABC_Importer < Importer
     rss = open(url).read
     feed = RSS::Parser.parse(rss)
     feed.items.each do |item|
-      #set different items to article object
-      #how to get author, image ?
       title = item.title
       summary = item.description
       pubDate = item.pubDate
       link = item.link
+      #get the tag
+      regex = /[A-Z][a-z]+/
+      tags = title.scan(regex)
+      #remove the first one
+      tags.shift
+      if tags.count == 0
+        tags = ['boring', 'sports news']
+      end
+      #set different items to article object
+      #how to get author, image ?
       article = Post.create(author: 'Unknown',
                           title: title,
                           summary: summary,
@@ -47,7 +55,7 @@ class ABC_Importer < Importer
                           source: ABC_Importer.source_name,
                           pubDate: pubDate,
                           link: link,
-                          tag_list: ['ABC','News','Sports'])
+                          tag_list: tags)
 
       #DEBUGGING
       puts "Successfully scraped one article:\nTitle:#{article.title},\nSummary:#{article.summary},\npubDate:#{article.pubDate},\nlink: #{article.link}\n"
