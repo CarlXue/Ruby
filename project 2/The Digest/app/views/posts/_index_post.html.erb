@@ -1,6 +1,6 @@
 <div class="panel panel-default">
   <div class="panel-body">
-  	<h2><%= post.title %> <br><small>Posted On: <%= post.created_at.strftime("%Y %m %d")%></small></h2>
+  	<h2><%= post.title %> <br><br><small>Posted On: <%= post.created_at.strftime("%Y %m %d")%></small></h2>
   	<p><%= truncate(post.source, length: 25, separator: ' ') %></p>
   	<% unless post.tag_list.empty? %>
   		<p>Tagged: <%= post.tag_list.join(' ') %></p>

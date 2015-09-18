@@ -54,6 +54,9 @@
 
       <div class="form-group">
         <%= f.label :interest_list %><br>
+        <p>Existing Tags:
+          <%= showTagList %>
+        </p>
         <%= f.text_field :interest_list, class: 'form-control' %>
       </div>
 
