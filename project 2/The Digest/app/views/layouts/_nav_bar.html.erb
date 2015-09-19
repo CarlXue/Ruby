@@ -1,0 +1,40 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <% if current_user %>
+        <%= link_to "The Digest", posts_path, class:"navbar-brand" %>
+      <% else %>
+        <%= link_to "The Digest", root_path, class:"navbar-brand" %>
+      <% end %>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <% if current_user %>
+        <ul class="nav navbar-nav">
+          <li><%= link_to "Posts", posts_path %></li>
+          <li><%= link_to "Interests", interests_path %></li>
+        </ul>
+        <form class="navbar-form navbar-right" role="search">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search">
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+        <ul class="nav navbar-nav navbar-right">
+          <li><%= link_to current_user.full_name, edit_user_path(current_user)%></li>
+          <li><%= link_to "Log Out", logout_path, method: :delete %></li>
+          <li><%= link_to "Update News", fetch_path %></li>
+        </ul>
+      <% end %> 
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
