@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 ## Create a dummy user
-user = User.create!(first_name: "Mat", last_name: "Blair", password: "testtest", password_confirmation:"testtest",
-	email: "mathew.blair@unimelb.edu.au", bio: "Some really awesome author that wrote some stuff",
-	username: 'mjolkchoklad')
+user = User.create!(first_name: "Carl", last_name: "Xue", password: "1234", password_confirmation:"1234",
+	email: "test@unimelb.edu.au", bio: "Balabalabala",
+	username: 'sxue1')
 

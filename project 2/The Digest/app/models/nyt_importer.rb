@@ -2,7 +2,6 @@ require 'date'
 require 'open-uri'
 require 'json'
 require 'net/http'
-require_relative 'post.rb'
 
 #   This class is inherited from the Importer. It requires the native library 
 # 'date', 'open-uri', 'json' and 'net/http'.
@@ -53,7 +52,7 @@ class NYT_Importer
       if tags.count == 0
         tags = ['boring']
       end
-       article = Post.create( author:nil,
+       article = Article.create( author:nil,
                                   title: key.fetch('headline').fetch('main').to_s,
                                   summary: key.fetch('snippet')? (key.fetch('abstract')) : nil,
                                   image: nil,

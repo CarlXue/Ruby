@@ -1,7 +1,6 @@
 require 'date'
 require 'rss'
 require 'open-uri'
-require_relative 'post.rb'
 
 #   This class is inherited from the Importer. It requires the native library 
 # 'date', 'open-uri'and 'rss'.
@@ -43,7 +42,7 @@ class NEWSAU_Importer
         if tags.count == 0
           tags = ['boring','National News']
         end
-        article = Post.create( image: item.enclosure.url,
+        article = Article.create( image: item.enclosure.url,
                                title: item.title, summary: item.description,
                                link: item.link, pubDate: item.pubDate.to_s[0..15],
                                source: NEWSAU_Importer.source_name, author: nil,

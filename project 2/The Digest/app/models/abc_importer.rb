@@ -1,7 +1,7 @@
 require 'date'
 require 'rss'
 require 'open-uri'
-require_relative 'post.rb'
+
 
 #   This class is inherited from the Importer. It requires the native library 
 # 'date', 'open-uri'and 'rss'.
@@ -48,7 +48,7 @@ class ABC_Importer
       end
       #set different items to article object
       #how to get author, image ?
-      article = Post.create(author: nil,
+      article = Article.create(author: nil,
                           title: title,
                           summary: summary,
                           image: nil,

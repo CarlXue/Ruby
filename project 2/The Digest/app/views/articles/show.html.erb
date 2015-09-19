@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+  	<h3><%= @articles.title %></h3>
+  </div>
+
+  <div class="panel-body">
+    <h4>Summary:</h4>
+  	<p><%= strip_tags(@articles.summary) %></p>
+
+    <h4>Author:</h4>
+    <% if @articles.author == nil %>
+      <p>Not provided</p>
+    <% else %>
+      <p><%= @articles.author %></p>
+    <% end %>
+
+    <h4>Image</h4>
+    <% if @articles.image == nil %>
+      <p>Not provided</p>
+    <% else %>
+      <%= image_tag @articles.image %>
+    <% end %>
+  </div>
+  <div class="panel-body">
+    <h4>Published Date:</h4>
+    <p><%= @articles.pubDate %></p>
+
+    <h4>Source:</h4>
+    <p><%= @articles.source %></p>
+
+    <h4>Link:</h4>
+    <a href="#" ><%= @articles.link %></a>
+  </div>
+
+</div>
+
+
+<div class="btn-group pull-right" role="group">
+    <%= link_to 'Back', articles_path ,class: "btn btn-default" %>
+</div>
+
+

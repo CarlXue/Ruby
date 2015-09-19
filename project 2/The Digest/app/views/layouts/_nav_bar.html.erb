@@ -9,7 +9,7 @@
         <span class="icon-bar"></span>
       </button>
       <% if current_user %>
-        <%= link_to "The Digest", posts_path, class:"navbar-brand" %>
+        <%= link_to "The Digest", articles_path, class:"navbar-brand" %>
       <% else %>
         <%= link_to "The Digest", root_path, class:"navbar-brand" %>
       <% end %>
@@ -19,7 +19,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <% if current_user %>
         <ul class="nav navbar-nav">
-          <li><%= link_to "Posts", posts_path %></li>
+          <li><%= link_to "News", articles_path %></li>
           <li><%= link_to "Interests", interests_path %></li>
         </ul>
         <form class="navbar-form navbar-right" role="search">
