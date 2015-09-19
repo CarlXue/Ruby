@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   # Resourceful routes for posts
   resources :posts
   get '/interests', to: 'posts#my_interests', as: 'interests'
+  get '/fetch', to: 'posts#fetchNews', as:'fetch'
   post '/posts/:id/comment', to: 'posts#comment', as: 'comment_on_post'
   resources :users, only: [:create,:new,:update,:destroy,:edit]
 end

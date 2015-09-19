@@ -1,6 +1,6 @@
 require_relative 'news.rb'
 
-class NewsAUJSONFormatter < News::Formatter
+class JSONFormatter < News::Formatter
 
   # Call super to guarantee that our checks are run
   def initialize

@@ -7,10 +7,11 @@
 # Engineering and IT school, University of Melbourne
 
 class Article_AGE < News::Article
-  attr_reader :link
-  def initialize(author, title, summary, images, source, date, link)
+  attr_reader :link, :category
+  def initialize(author, title, summary, images, source, date, link, category)
     super(author, title, summary, images, source, date)
     @link = link
+    @category = category
   end
   def attributes
     hash = {
@@ -20,7 +21,8 @@ class Article_AGE < News::Article
         'images' => @images,
         'source' => @source,
         'date' => @date,
-        'link' => @link
+        'link' => @link,
+        'category' => @category
     }
   end
 end

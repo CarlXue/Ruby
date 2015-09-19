@@ -1,13 +1,16 @@
 class Post < ActiveRecord::Base
-  # Relationship
+
+  validates_uniqueness_of :title, scope: [:pubDate]
   belongs_to :user
+  # Relationship
   has_many :comments
 
   # Posts can have tags
   acts_as_taggable
 
-  def can_edit? other
-  	user ? user==other : true
-  end
+
+  # Initialize the news article, using named paraters to associate
+  # the author, title, summary, images, source
+
 
 end

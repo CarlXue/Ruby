@@ -19,4 +19,14 @@ module SessionsHelper
 		session[:user_id] = nil
 	end
 
+	def showTagList
+		cat = []
+		Post.all.each do |p|
+			p.tag_list.each do |tags|
+				cat << tags
+			end
+		end
+		return cat.uniq
+	end
+
 end

@@ -1,8 +1,10 @@
 require 'date'
 require 'rss'
 require 'open-uri'
+require 'nokogiri'
 require_relative 'news.rb'
 require_relative 'article_AGE.rb'
+
 
 #   This class is inherited from the Importer. It requires the native library 
 # 'date', 'open-uri'and 'rss'.
@@ -21,10 +23,7 @@ require_relative 'article_AGE.rb'
 class Importer_RSS < News::Importer
   def initialize(start_date, end_date)
     super
-    url = 'http://www.theage.com.au/rssheadlines/top.xml'
-    rss = open(url).read
-    @feed = RSS::Parser.parse(rss,false)
-    @source = @feed.channel.title.to_s
+
   end
 
   # RETURN THE SOURCE NAME
@@ -34,15 +33,18 @@ class Importer_RSS < News::Importer
   # PERFORM SCRAPE AND STORE THE ARTICLES
   def scrape
     # CODE HERE
-    @feed.items.each do |item|
+    url = 'http://www.computerweekly.com/rss/IT-hardware.xml'
+    feeds = Nokogiri::XML(open(url))
+    feeds.xpath('//item').map do |item|
     #set different items to article object
-      article = Article_AGE.new 'Blank',
-                                     item.title.delete(','),
-                                     item.description.to_s.delete(','),
-                                     'Blank',
-                                     @source,
-                                     item.pubDate.to_s.delete(','),
-                                     item.link
+      article = Article_AGE.new 'Unknown',
+                                     item.at_xpath('title').text,
+                                     item.at_xpath('description').text,
+                                     nil,
+                                     'TC',
+                                     item.at_xpath('pubDate').text,
+                                     item.at_xpath('link').text,
+                                     item.at_xpath('category').text
       @articles << article
     end
     # PRINT OUT THE BRIEF INFO FOR DEBUGGING USE

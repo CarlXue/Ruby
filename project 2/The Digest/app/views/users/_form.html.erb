@@ -54,6 +54,10 @@
 
       <div class="form-group">
         <%= f.label :interest_list %><br>
+        <p> These are the tags you can choose<br>
+        <Strong>Existing Tags:</Strong>
+          <%= showTagList %>
+        </p>
         <%= f.text_field :interest_list, class: 'form-control' %>
       </div>
 
