@@ -61,7 +61,7 @@ class UsersController < ApplicationController
 
     def check_valid
       unless @user==current_user
-        redirect_to posts_path
+        render :status => 403, :text => "Forbidden/403"
       end
     end
 

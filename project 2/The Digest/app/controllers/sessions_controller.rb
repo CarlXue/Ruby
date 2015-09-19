@@ -14,9 +14,9 @@ class SessionsController < ApplicationController
 	  	log_in user
 	  	# Redirect to posts page
 	  	redirect_to posts_path
-	else
-		redirect_to :back
-	end
+    else 
+      render :status => 401, :text => "Unauthorized/401"
+	  end
   end
 
   # Log out the user in the session and redirect to the unauth thing
