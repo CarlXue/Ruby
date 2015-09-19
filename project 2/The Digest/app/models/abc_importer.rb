@@ -1,21 +1,9 @@
+# Created by Song Xue (667692)
+# Engineering and IT school, University of Melbourne
+
 require 'date'
 require 'rss'
 require 'open-uri'
-
-
-#   This class is inherited from the Importer. It requires the native library 
-# 'date', 'open-uri'and 'rss'.
-#
-#   This class is responsible for importing the articles from ABC. 
-#
-#   url is the address of the top sports news from ABC news source.
-#
-#   self.source_name return the name of this source.
-#
-#   scrape method performs an rss parsing and getting the information from it.
-
-# Created by Song Xue (667692)
-# Engineering and IT school, University of Melbourne
 
 class ABC_Importer
   def initialize
@@ -58,7 +46,7 @@ class ABC_Importer
                           tag_list: tags)
 
       #DEBUGGING
-      puts "Successfully scraped one article:\nTitle:#{article.title},\nSummary:#{article.summary},\npubDate:#{article.pubDate},\nlink: #{article.link}\n"
+      puts "Successfully scraped one article:\nTitle:#{article.title}"
 
     end
   end

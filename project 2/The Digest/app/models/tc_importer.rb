@@ -1,21 +1,10 @@
+# Created by Song Xue (667692)
+# Engineering and IT school, University of Melbourne
+
 require 'date'
 require 'rss'
 require 'open-uri'
 require 'nokogiri'
-
-#   This class is inherited from the Importer. It requires the native library 
-# 'date', 'open-uri'and 'rss'.
-#
-#   This class is responsible for importing the articles from ABC. 
-#
-#   url is the address of the top sports news from ABC news source.
-#
-#   self.source_name return the name of this source.
-#
-#   scrape method performs an rss parsing and getting the information from it.
-
-# Created by Song Xue (667692)
-# Engineering and IT school, University of Melbourne
 
 class TC_Importer
   def initialize
@@ -45,15 +34,15 @@ class TC_Importer
       end
       #set different items to article object
       article = Article.create(author:nil,
-                                title: item.at_xpath('title').text,
-                                summary: item.at_xpath('description').text,
-                                image: item.at_xpath('media:thumbnail').attr('url'),
-                                source: TC_Importer.source_name,
-                                pubDate: item.at_xpath('pubDate').text[0..15],
-                                link: item.at_xpath('link').text,
-                                tag_list: tags)
+                            title: item.at_xpath('title').text,
+                            summary: item.at_xpath('description').text,
+                            image: item.at_xpath('media:thumbnail').attr('url'),
+                            source: TC_Importer.source_name,
+                            pubDate: item.at_xpath('pubDate').text[0..15],
+                            link: item.at_xpath('link').text,
+                            tag_list: tags)
       #DEBUGGING
-      puts "Successfully scraped one article:\nTitle:#{article.title},\nSummary:#{article.summary},\npubDate:#{article.pubDate},\nlink: #{article.link}\n"
+      puts "Successfully scraped one article:\nTitle:#{article.title}"
     end
   end
 end

@@ -9,7 +9,8 @@ Rails.application.routes.draw do
   delete 'sessions/logout', as: :logout
 
   # Resourceful routes for articles
-  resources :articles
+  get '/articles', to: 'articles#index', as: 'articles'
+  get '/articles/:id', to: 'articles#show', as: 'article'
   get '/interests', to: 'articles#my_interests', as: 'interests'
   get '/fetch', to: 'articles#fetchNews', as:'fetch'
   resources :users, only: [:create,:new,:update,:destroy,:edit]
