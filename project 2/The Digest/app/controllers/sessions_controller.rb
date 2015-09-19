@@ -12,8 +12,8 @@ class SessionsController < ApplicationController
   	if user
 	  	# Save them in the session
 	  	log_in user
-	  	# Redirect to posts page
-	  	redirect_to posts_path
+	  	# Redirect to articles page
+	  	redirect_to articles_path
     else 
       render :status => 401, :text => "Unauthorized/401"
 	  end

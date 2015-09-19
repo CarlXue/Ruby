@@ -13,8 +13,6 @@ class User < ActiveRecord::Base
 
 	# Use secure passwords
 	has_secure_password
-    has_many :comments
-
 	# Find a user by email, then check the username is the same
 	def self.authenticate password, email
 		user = User.find_by(email: email)

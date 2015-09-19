@@ -21,7 +21,7 @@ module SessionsHelper
 
 	def showTagList
 		cat = []
-		Post.all.each do |p|
+		Article.all.each do |p|
 			p.tag_list.each do |tags|
 				cat << tags
 			end

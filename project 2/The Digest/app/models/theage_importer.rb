@@ -1,7 +1,6 @@
 require 'date'
 require 'rss'
 require 'open-uri'
-require_relative 'post.rb'
 
 #   This class is inherited from the Importer. It requires the native library 
 # 'date', 'open-uri'and 'rss'.
@@ -44,7 +43,7 @@ class THEAGE_Importer
         tags = ['boring','Top News']
       end
     #set different items to article object
-      article = Post.create( author: nil,
+      article = Article.create( author: nil,
                                      title: item.title.delete(','),
                                      summary: item.description.to_s.delete(','),
                                      image: nil,

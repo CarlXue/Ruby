@@ -2,7 +2,6 @@ require 'date'
 require 'rss'
 require 'open-uri'
 require 'nokogiri'
-require_relative 'post.rb'
 
 #   This class is inherited from the Importer. It requires the native library 
 # 'date', 'open-uri'and 'rss'.
@@ -45,7 +44,7 @@ class EUREK_Importer
         tags = ['boring','mathematics','science']
       end
       #set different items to article object
-      article = Post.create(author: nil,
+      article = Article.create(author: nil,
                                 title: item.title,
                                 summary: item.description,
                                 image: nil,

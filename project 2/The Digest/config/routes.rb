@@ -8,10 +8,9 @@ Rails.application.routes.draw do
   post 'sessions/login', as: :signin
   delete 'sessions/logout', as: :logout
 
-  # Resourceful routes for posts
-  resources :posts
-  get '/interests', to: 'posts#my_interests', as: 'interests'
-  get '/fetch', to: 'posts#fetchNews', as:'fetch'
-  post '/posts/:id/comment', to: 'posts#comment', as: 'comment_on_post'
+  # Resourceful routes for articles
+  resources :articles
+  get '/interests', to: 'articles#my_interests', as: 'interests'
+  get '/fetch', to: 'articles#fetchNews', as:'fetch'
   resources :users, only: [:create,:new,:update,:destroy,:edit]
 end
