@@ -1,4 +1,5 @@
-
+# Created by Song Xue (667692)
+# Engineering and IT school, University of Melbourne
 
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show]
@@ -10,7 +11,8 @@ class ArticlesController < ApplicationController
   end
   # GET /interest
   def my_interests
-    @articles = Article.tagged_with(current_user.interest_list, :any => true).to_a
+    @articles = Article.tagged_with(current_user.interest_list,
+                                     :any => true).to_a
     render 'index'
   end
   # GET/ fetch
@@ -28,7 +30,8 @@ class ArticlesController < ApplicationController
     theage = THEAGE_Importer.new
     theage.scrape
     respond_to do |format|
-      format.html { redirect_to articles_path, notice: 'News was successfully scraped.'}
+      format.html { redirect_to articles_path, 
+                    notice: 'News was successfully scraped.'}
     end
   end
   # GET /articles/1
@@ -42,8 +45,10 @@ class ArticlesController < ApplicationController
       @articles = Article.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Never trust parameters from the scary internet, only allow the white list 
+    # through.
     def article_params
-      params.require(:article).permit(:title, :source, :summary, :author, :image, :link, :pubDate, :tag_list)
+      params.require(:article).permit(:title, :source, :summary, :author, 
+                                      :image, :link, :pubDate, :tag_list)
     end
 end

@@ -1,25 +1,10 @@
+# Created by Song Xue (667692)
+# Engineering and IT school, University of Melbourne
+
 require 'date'
 require 'open-uri'
 require 'json'
 require 'net/http'
-
-#   This class is inherited from the Importer. It requires the native library 
-# 'date', 'open-uri', 'json' and 'net/http'.
-#
-#   This class is responsible for importing the articles from New York Times. 
-#
-#   myDeveloperKey is assigned by the New York Times when applying the 
-# permission of accesssing its source. It is used to getting the news with 
-# authentication.
-#
-#   self.source_name return the name of this source.
-#
-#   scrape method performs a url request to the New York Times web service and 
-# getting the neccessary information from the response. From each article, 
-# those information will be fit into the Atricle_NYT class instances. 
-
-# Created by Song Xue (667692)
-# Engineering and IT school, University of Melbourne
 
 class NYT_Importer
   @myDeveloperKey = ''
@@ -34,7 +19,7 @@ class NYT_Importer
   # PERFORM SCRAPE AND STORE THE ARTICLES
   def scrape
     # CODE HERE
-    url="http://api.nytimes.com/"
+    url='http://api.nytimes.com/'
     uri = URI.parse(url)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = false
@@ -53,16 +38,16 @@ class NYT_Importer
         tags = ['boring']
       end
        article = Article.create( author:nil,
-                                  title: key.fetch('headline').fetch('main').to_s,
-                                  summary: key.fetch('snippet')? (key.fetch('abstract')) : nil,
-                                  image: nil,
-                                  source: key.fetch('source'),
-                                  pubDate: key.fetch('pub_date').to_s.delete(',')[0..9],
-                                  link: key.fetch('web_url').to_s,
-                                  tag_list:tags)
+                 title: key.fetch('headline').fetch('main').to_s,
+                 summary: key.fetch('snippet')? (key.fetch('abstract')) : nil,
+                 image: nil,
+                 source: key.fetch('source'),
+                 pubDate: key.fetch('pub_date').to_s.delete(',')[0..9],
+                 link: key.fetch('web_url').to_s,
+                 tag_list:tags)
 
       #DEBUGGING
-      puts "Successfully scraped one article:\nTitle:#{article.title},\nSummary:#{article.summary},\npubDate:#{article.pubDate},\nlink: #{article.link}\n"
+      puts "Successfully scraped one article:\nTitle:#{article.title}"
     end
   end
 end

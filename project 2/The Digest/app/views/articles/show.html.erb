@@ -2,12 +2,12 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-  	<h3><%= @articles.title %></h3>
+    <h3><%= @articles.title %></h3>
   </div>
 
   <div class="panel-body">
     <h4>Summary:</h4>
-  	<p><%= strip_tags(@articles.summary) %></p>
+    <p><%= strip_tags(@articles.summary) %></p>
 
     <h4>Author:</h4>
     <% if @articles.author == nil %>

@@ -1,3 +1,7 @@
+# Created by Song Xue (667692)
+# Engineering and IT school, University of Melbourne
+
+
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user, only: [:edit, :destroy, :update]
@@ -15,15 +19,16 @@ class UsersController < ApplicationController
   # user /users
   # user /users.json
   def create
-    @user = User.new(user_params)  
+    @user = User.new(user_params)
     respond_to do |format|
       if @user.save
         log_in @user
-        format.html { redirect_to articles_path, notice: 'user was successfully created.' }
+        format.html { redirect_to articles_path, 
+                      notice: 'user was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        format.json { render json: @user.errors, status: :unprocessable_entity}
       end
     end
   end
@@ -33,7 +38,8 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to articles_path, notice: 'user was successfully updated.' }
+        format.html { redirect_to articles_path,
+                      notice: 'user was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
@@ -48,7 +54,8 @@ class UsersController < ApplicationController
     log_out
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to root_path, notice: 'user was successfully destroyed.' }
+      format.html { redirect_to root_path, 
+                    notice: 'user was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -61,12 +68,15 @@ class UsersController < ApplicationController
 
     def check_valid
       unless @user==current_user
-        render :status => 403, :text => "Forbidden/403"
+        render :status => 403, :text => 'Forbidden/403'
       end
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Never trust parameters from the scary internet, only allow the white list 
+    # through.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :bio, :username, :password, :interest_list, :password_confirmation)
+      params.require(:user).permit(:first_name, :last_name, :email, :bio, 
+                                   :username, :password, :interest_list, 
+                                   :password_confirmation)
     end
 end

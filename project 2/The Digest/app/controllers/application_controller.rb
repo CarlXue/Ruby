@@ -1,3 +1,6 @@
+# Created by Song Xue (667692)
+# Engineering and IT school, University of Melbourne
+
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -7,8 +10,8 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
 
   def authenticate_user
-  	if !current_user
-  		redirect_to login_path 
-  	end
+    if !current_user
+      redirect_to login_path
+    end
   end
 end

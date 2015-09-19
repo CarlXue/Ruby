@@ -1,20 +1,9 @@
+# Created by Song Xue (667692)
+# Engineering and IT school, University of Melbourne
+
 require 'date'
 require 'rss'
 require 'open-uri'
-
-#   This class is inherited from the Importer. It requires the native library 
-# 'date', 'open-uri'and 'rss'.
-#
-#   This class is responsible for importing the articles from The Age. 
-#
-#   url is the address of the top stories from The Age news source.
-#
-#   self.source_name return the name of this source.
-#
-#   scrape method performs an rss parsing and getting the information from it.
-
-# Created by Song Xue (667692)
-# Engineering and IT school, University of Melbourne
 
 class THEAGE_Importer
   def initialize
@@ -44,18 +33,16 @@ class THEAGE_Importer
       end
     #set different items to article object
       article = Article.create( author: nil,
-                                     title: item.title.delete(','),
-                                     summary: item.description.to_s.delete(','),
-                                     image: nil,
-                                     source: THEAGE_Importer.source_name,
-                                     pubDate: item.pubDate.to_s.delete(',')[0..14],
-                                     link: item.link,
-                                     tag_list:tags)
+                                 title: item.title.delete(','),
+                                 summary: item.description.to_s.delete(','),
+                                 image: nil,
+                                 source: THEAGE_Importer.source_name,
+                                 pubDate: item.pubDate.to_s.delete(',')[0..14],
+                                 link: item.link,
+                                 tag_list:tags)
 
-      #assign tag list
       #DEBUGGING
-      puts "TAGs: #{article.tag_list}"
-      puts "Successfully scraped one article:\nTitle:#{article.title},\nSummary:#{article.summary},\npubDate:#{article.pubDate},\nlink: #{article.link}\n"
+      puts "Successfully scraped one article:\nTitle:#{article.title}"
 
     end
   end
